@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -f run.pid ] ; then
+    echo "Service already started"
+else
+    nohup python xmas.py &
+    echo $! > run.pid
+fi
+

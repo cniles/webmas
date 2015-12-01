@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="xmas">
+  <head>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+  </head>
+  <body ng-controller="XMasController as xmas">
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="jquery-2.1.4.min.js"></script>
+
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="light in lights" >
+	<h3> {{light.name}} </h1>
+	<h2 class="pull-right"> {{light.status}} </h2>
+	<p> {{light.description}} </p>
+	<button ng-click="xmas.toggle(light)" ng-show="light.on">Turn Off</button>
+	<button ng-click="xmas.toggle(light)" ng-hide="light.on">Turn On</button>
+      </li>
+    </div>
+
+  </body>
+</html>

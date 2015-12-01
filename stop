@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -f run.pid ] ; then
+    pid=`cat run.pid`
+    kill $pid
+    rm -f run.pid
+else
+    echo "Service already stopped"
+fi
