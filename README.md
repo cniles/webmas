@@ -9,7 +9,9 @@ Setup your raspberry pi with raspbian (haven't tested any other linux distributi
 Next, install pip:
 `sudo apt-get install python-pip`
 
-Next, go get wiringPi and follow the instructions there:
+Using pip, install Flask: `sudo pip install flask`
+
+Then, go get wiringPi and follow the instructions there:
 
 http://wiringpi.com/download-and-install/
 
