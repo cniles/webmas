@@ -39,5 +39,5 @@ Its configured by default to control *wiringPi pins* 7, 0, 1, 4 which are mapped
 See here for more information: http://wiringpi.com/pins/
 
 # Main hardware used
--RaspberryPi Model B
--SainSmart 5V 4-Channel Solid State Relay Board 
+- RaspberryPi Model B
+- SainSmart 5V 4-Channel Solid State Relay Board 
