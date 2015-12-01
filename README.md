@@ -25,13 +25,14 @@ If you have problems with your debian packages (old image maybe, or haven't run 
 `sudo apt-get update`
 
 ## running
-Pretty simple, just run the start script (note: it eats up port 80 by default, so you'll need to run it as sudo):
 
-`sudo ./start` starts the backend
+Pretty simple, just run the scripts (note: it eats up port 80 by default, so you'll need to run it as sudo).  So, from the repo's root directory:
 
-`sudo ./stop` stops it
+`sudo ./bin/start` starts the backend
 
-`sudo ./restart` well...you get it...
+`sudo ./bin/stop` stops it
+
+`sudo ./bin/restart` well...you get it...
 
 ## some details
 Its configured by default to control *wiringPi pins* 7, 0, 1, 4 which are mapped to light strands 0, 1, 2, 3 respectively.  Don't get these confused with the GPIO name, or the header number!
