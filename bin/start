@@ -1,9 +1,12 @@
 #!/bin/bash
 
+root=`dirname $0`/..
+cd $root
+
 if [ -f run.pid ] ; then
     echo "Service already started"
 else
-    nohup python xmas.py &
+    nohup python xmas.py > log 2>&1 &
     echo $! > run.pid
 fi
 
