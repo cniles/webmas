@@ -16,7 +16,7 @@ Then, go get wiringPi and follow the instructions there:
 http://wiringpi.com/download-and-install/
 
 Awesome, now you need to install the python bindings from Philip Howard.  But first, its needs some dependencies:
-`sudo apt-get install python-dev python setup-tools`
+`sudo apt-get install python-dev python-setuptools`
 
 You could clone the the git repo and install that way...but I just used pip:
 `sudo pip install wiringpi2`
