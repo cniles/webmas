@@ -15,19 +15,17 @@ gpio_map = { 0: 7,
              2: 1,
              3: 4 }
 
-# maps light nmber to a description
+# maps light number to a description
 descriptions = {
     0: "Stairs/balcony",
     1: "Plants/Shrubs",
     2: "Roof",
-    3: "Windows/Garage"
-}
+    3: "Windows/Garage" }
 
 # maps pin write status to a string
 status_map = {
     0: 'Off',
-    1: 'On'
-}
+    1: 'On' }
 
 # Gets a light current status
 def getLightStatus(num):
