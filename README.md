@@ -24,15 +24,16 @@ You could clone the the git repo and install that way...but I just used pip:
 
 You'll also need the dependencies for the decoder.py library (Special thanks to Dalen Bernaca):
 To install them on Ubuntu/Debian use:
+```
 $ sudo
 $ apt-get install lame
 $ apt-get install faad
 $ apt-get install flac
 $ apt-get install ffmpeg
 $ apt-get install vorbis-tools
-
+```
 And mutagen:
-sudo pip install mutagen
+`sudo pip install mutagen`
 
 That should be it..
 
