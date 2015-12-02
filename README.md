@@ -21,6 +21,21 @@ Awesome, now you need to install the python bindings from Philip Howard.  But fi
 You could clone the the git repo and install that way...but I just used pip:
 `sudo pip install wiringpi2`
 
+
+You'll also need the dependencies for the decoder.py library (Special thanks to Dalen Bernaca):
+To install them on Ubuntu/Debian use:
+$ sudo
+$ apt-get install lame
+$ apt-get install faad
+$ apt-get install flac
+$ apt-get install ffmpeg
+$ apt-get install vorbis-tools
+
+And mutagen:
+sudo pip install mutagen
+
+That should be it..
+
 If you have problems with your debian packages (old image maybe, or haven't run updates in a while?), try running update:
 `sudo apt-get update`
 
