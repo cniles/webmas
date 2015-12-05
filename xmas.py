@@ -1,4 +1,5 @@
-from flask import Flask,redirect
+from flask import Flask,redirect,request
+import store
 import wiringpi2
 import json
 
@@ -59,12 +60,29 @@ def toggle_light(num):
         status = status ^ 1
         setLightStatus(num, status)
         return json.dumps(makeLight(num))
-    return json.dumps({"error":"Not a valid pin"})
+    return json.dumps({"success":False,"error":"Not a valid pin"})
 
 # Gets the status of all the lights
 @app.route('/lights', methods=['GET'])
 def get_lights():
     return json.dumps([ makeLight(num) for num in valid_lights ])
+
+@app.route('/timers', methods=['GET'])
+def get_timers():
+    try:
+        print "Getting settings"
+        timers = store.read_setting('timers')
+        if timers:
+            print "found times ", timers
+            return json.dumps(timers)
+        return json.dumps([])
+    except:
+        print "Unknown error"
+    return json.dumps([])
+
+@app.route('/timers', methods=['POST'])
+def add_timer():
+    return json.dumps({'success': store.add_to_list('timers', request.json)})
 
 # Fire it up
 if __name__ == '__main__':
