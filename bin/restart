@@ -1,6 +1,6 @@
 #!/bin/bash
 
 root=`dirname $0`/../
-
-sh $root/bin/stop
-sh $root/bin/start
+cd $root
+sh bin/stop
+sh bin/start
