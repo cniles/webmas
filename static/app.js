@@ -30,4 +30,25 @@
 	};
 
     });
+
+    app.controller("TimerContrller", function($scope, $http) {
+	$http.get('/timers').then(function(response) {
+	    $scope.timers = response.data;
+	});
+	
+    });
+
+    app.controller('NewTimerController', function($scope, $http) {
+	$scope.timer = {};
+	
+	$scope.submit = function() {
+	    console.log($scope.timer);
+	    $http.post('/timers', $scope.timer).success(function(data, status) {
+		console.log("Submitted");
+		$scope.timers.push($scope.timer);
+		$scope.timer = {};
+	    });
+	};
+					       
+    });
 })();
