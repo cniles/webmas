@@ -61,7 +61,7 @@ def index():
 # Toggles a light's status.  The response body is ignored
 @app.route('/light/<int:num>', methods=['POST'])
 def toggle_light(num):
-    if light in valid_lights:
+    if num in valid_lights:
         status = getLightStatus(num)
         status = status ^ 1
         setLightStatus(num, status)
@@ -73,22 +73,32 @@ def toggle_light(num):
 def get_lights():
     return json.dumps([ makeLight(num) for num in valid_lights ])
 
+# sets the status of all the lights
+@app.route('/lights', methods=['POST'])
+def set_lights():
+    print "Setting lights"
+    data = request.get_json()
+    print "Got ", data
+    for light in valid_lights:
+        val = 1 if data['on'] else 0
+        setLightStatus(light, val)
+    return get_lights()
+
+@app.route('/timer/<int:num>', methods=['DELETE'])
+def delete_timer(num):
+    timers.remove(Timers.num == num)
+    return json.dumps({'success':True})
+
 @app.route('/timers', methods=['GET'])
 def get_timers():
-    try:
-        print "Getting settings"
-        timers = store.read_setting('timers')
-        if timers:
-            print "found times ", timers
-            return json.dumps(timers)
-        return json.dumps([])
-    except:
-        print "Unknown error"
-    return json.dumps([])
+    return json.dumps(timers.all())
 
 @app.route('/timers', methods=['POST'])
 def add_timer():
-    return json.dumps({'success': store.add_to_list('timers', request.json)})
+    timer = request.get_json()
+    print "Adding timer: ", timer
+    timers.insert(timer)
+    return json.dumps({'success': True})
 
 # Fire it up
 if __name__ == '__main__':
