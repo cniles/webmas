@@ -1,3 +1,4 @@
+
 //
 // The Angular JS module for the web client
 //
@@ -28,23 +29,35 @@
 		light.on = data.on;
 	    });
 	};
-
+	
+	this.setAll = function(status) {
+	    var data = {
+		on: status
+	    };
+	    $http.post('/lights', data).success(function(data, status) {
+		$scope.lights = data;
+	    });
+	};
     });
 
-    app.controller("TimerContrller", function($scope, $http) {
+    app.controller('TimerController', function($scope, $http) {
 	$http.get('/timers').then(function(response) {
 	    $scope.timers = response.data;
 	});
-	
+
+	this.remove = function(timer) {
+	    $http.delete('/timer/' + timer.num, {}).success(function(data, status) {
+		var pos = $scope.timers.indexOf(timer)
+		$scope.timers = $scope.timers.splice(pos, 1)
+	    });
+	};
     });
 
     app.controller('NewTimerController', function($scope, $http) {
 	$scope.timer = {};
 	
 	$scope.submit = function() {
-	    console.log($scope.timer);
 	    $http.post('/timers', $scope.timer).success(function(data, status) {
-		console.log("Submitted");
 		$scope.timers.push($scope.timer);
 		$scope.timer = {};
 	    });
