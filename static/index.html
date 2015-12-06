@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+button<!DOCTYPE html>
 <html ng-app="xmas">
   <head>
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
@@ -6,16 +6,47 @@
   <body ng-controller="XMasController as xmas">
     <script type="text/javascript" src="angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
-
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="light in lights" >
-	<h3> {{light.name}} </h1>
-	<h2 class="pull-right"> {{light.status}} </h2>
-	<p> {{light.description}} </p>
-	<button ng-click="xmas.toggle(light)" ng-show="light.on">Turn Off</button>
-	<button ng-click="xmas.toggle(light)" ng-hide="light.on">Turn On</button>
-      </li>
+    <div class='left'>
+      <h1>Lights</h1>
+      <ul class="list-group">
+	<li class="list-group-item" ng-repeat="light in lights" >
+	  <h3> {{light.name}} </h3>
+	  <h2 class="pull-right"> {{light.status}} </h2>
+	  <p> {{light.description}} </p>
+	  <button ng-click="xmas.toggle(light)" ng-show="light.on">Turn Off</button>
+	  <button ng-click="xmas.toggle(light)" ng-hide="light.on">Turn On</button>
+	</li>
+      </ul>
     </div>
+
+    <div ng-controller="TimerController as timerCtrl">
+      <h1>Timers</h1>
+      <ul class="list-group">
+	<li class="list-group-item" ng-repeat="timer in timers" >
+	  Timer {{timer.num}} | Start: {{timer.start.hour}}:{{timer.start.minute}} Stop: {{timer.stop.hour}}:{{timer.stop.minute}}
+	  <button class="pull-right" ng-click="timerCtrl.remove(timer)">Delete</button>
+	</li>
+      </ul>
+
+      <form ng-controller="NewTimerController as newTimerCtrl"
+	    ng-submit="submit()">
+	<h1>New Timer</h1>
+	<blockquote>
+	  Start:
+	  <input type="number" min="0" max="24"
+		 ng-model="timer.start.hour">h</input>
+	  <input type="number" min="0" max="59"
+		 ng-model="timer.start.minute">m</input>
+	  Stop:
+	  <input type="number" min="0" max="24"
+		 ng-model="timer.stop.hour">h</input>
+	  <input type="number" min="0" max="59"
+		 ng-model="timer.stop.minute">m</input>
+	  <input type="submit" value="Submit"/>
+	</blockquote>
+      </form>
+    </div>
+      
 
   </body>
 </html>
