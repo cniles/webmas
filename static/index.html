@@ -1,4 +1,4 @@
-button<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="xmas">
   <head>
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
@@ -8,6 +8,8 @@ button<!DOCTYPE html>
     <script type="text/javascript" src="app.js"></script>
     <div class='left'>
       <h1>Lights</h1>
+      <button ng-click="xmas.setAll(true)">All On</button>
+      <button ng-click="xmas.setAll(false)">All Off</button>
       <ul class="list-group">
 	<li class="list-group-item" ng-repeat="light in lights" >
 	  <h3> {{light.name}} </h3>
