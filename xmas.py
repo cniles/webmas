@@ -1,11 +1,17 @@
 from flask import Flask,redirect,request
-import store
 import wiringpi2
 import json
+
+from tinydb import TinyDB, Query
 
 # Creates our backend flask application. Set the static url path to
 # root, so that index.html can fall at /index.html
 app = Flask(__name__, static_url_path='')
+
+db = TinyDB('db.json')
+
+timers = db.table('timers')
+Timers = Query()
 
 # valid light numbers
 valid_lights = [0, 1, 2, 3]
