@@ -17,8 +17,8 @@ Timers = Query()
 valid_lights = [0, 1, 2, 3]
 
 # Maps light number to gpio pin (wiringpi2 mapping)
-gpio_map = { 0: 7,
-             1: 0,
+gpio_map = { 0: 0,
+             1: 7,
              2: 1,
              3: 4 }
 

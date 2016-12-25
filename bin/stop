@@ -5,7 +5,12 @@ cd $root
 
 if [ -f run.pid ] ; then
     pid=`cat run.pid`
-    kill $pid
+    ps --pid $pid > /dev/null
+    if [ $? -eq 0 ] ; then
+	kill $pid
+    else
+	echo "Service already stopped"
+    fi
     rm -f run.pid
 else
     echo "Service already stopped"

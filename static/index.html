@@ -2,21 +2,22 @@
 <html ng-app="xmas">
   <head>
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="bootstrap-theme.min.css" />
   </head>
   <body ng-controller="XMasController as xmas">
     <script type="text/javascript" src="angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <div class='left'>
       <h1>Lights</h1>
-      <button ng-click="xmas.setAll(true)">All On</button>
-      <button ng-click="xmas.setAll(false)">All Off</button>
+      <button type="button" class="btn btn-lg butn-default" ng-click="xmas.setAll(true)">All On</button>
+      <button type="button" class="btn btn-lg butn-default" ng-click="xmas.setAll(false)">All Off</button>
       <ul class="list-group">
 	<li class="list-group-item" ng-repeat="light in lights" >
 	  <h3> {{light.name}} </h3>
 	  <h2 class="pull-right"> {{light.status}} </h2>
 	  <p> {{light.description}} </p>
-	  <button ng-click="xmas.toggle(light)" ng-show="light.on">Turn Off</button>
-	  <button ng-click="xmas.toggle(light)" ng-hide="light.on">Turn On</button>
+	  <button type="button" class="btn butn-default" ng-click="xmas.toggle(light)" ng-show="light.on">Turn Off</button>
+	  <button type="button" class="btn butn-default" ng-click="xmas.toggle(light)" ng-hide="light.on">Turn On</button>
 	</li>
       </ul>
     </div>
@@ -26,7 +27,7 @@
       <ul class="list-group">
 	<li class="list-group-item" ng-repeat="timer in timers" >
 	  Timer {{timer.num}} | Start: {{timer.start.hour}}:{{timer.start.minute}} Stop: {{timer.stop.hour}}:{{timer.stop.minute}}
-	  <button class="pull-right" ng-click="timerCtrl.remove(timer)">Delete</button>
+	  <button type="button" class="btn butn-danger pull-right" ng-click="timerCtrl.remove(timer)">Delete</button>
 	</li>
       </ul>
 
