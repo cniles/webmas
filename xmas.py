@@ -1,5 +1,5 @@
 from flask import Flask,redirect,request
-import wiringpi2
+import wiringpi
 import json
 from time import sleep
 
@@ -14,21 +14,15 @@ db = TinyDB('db.json')
 timers = db.table('timers')
 Timers = Query()
 
-# valid light numbers
-valid_lights = [0, 1, 2, 3]
-
 # Maps light number to gpio pin (wiringpi2 mapping)
-gpio_map = { 0: 0,
-             1: 7,
-             2: 1,
-             3: 4 }
 
+pins = [ 22, 21, 3, 2, 0, 7, 9, 8, 5, 6, 26, 27 ]
+
+valid_lights = range(len(pins))
+
+gpio_map = dict(zip(valid_lights, pins))
+    
 # maps light number to a description
-descriptions = {
-    0: "Stairs/balcony",
-    1: "Plants/Shrubs",
-    2: "Roof",
-    3: "Windows/Garage" }
 
 # maps pin write status to a string
 status_map = {
@@ -37,18 +31,18 @@ status_map = {
 
 # Gets a light current status
 def getLightStatus(num):
-    return wiringpi2.digitalRead(gpio_map[num])
+    return wiringpi.digitalRead(gpio_map[num])
 
 # Sets a light on or off
 def setLightStatus(num, val):
-    wiringpi2.digitalWrite(gpio_map[num], val)
+    wiringpi.digitalWrite(gpio_map[num], val)
 
 # Creates a new dict that describes the current state of a light,
 # which can then be encoded into JSON
 def makeLight(num):
     status = getLightStatus(num);
     return {
-        "description": descriptions[num],
+        "description": "na",
         "on": bool(status),
         "status": status_map[status],
         "name": "Light " + str(num+1),
@@ -137,12 +131,12 @@ def interval_show():
 
 if __name__ == '__main__':
 
-    # initialize wiringpi2 services
-    wiringpi2.wiringPiSetup()
+    # initialize wiringpi services
+    wiringpi.wiringPiSetup()
 
     # set gpio to output (if not already)
     for light in valid_lights:
-        wiringpi2.pinMode(gpio_map[light], 1)
+        wiringpi.pinMode(gpio_map[light], 1)
 
     # start the web services
     # host="0.0.0.0" allows external access
