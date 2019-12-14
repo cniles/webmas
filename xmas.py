@@ -1,6 +1,7 @@
 from flask import Flask,redirect,request
 import wiringpi2
 import json
+from time import sleep
 
 from tinydb import TinyDB, Query
 
@@ -100,7 +101,40 @@ def add_timer():
     timers.insert(timer)
     return json.dumps({'success': True})
 
-# Fire it up
+
+@app.route('/twinkle', methods=['POST'])
+def random_twinkle():
+    interval_show()
+
+
+
+def looping_generator(l):
+    while True:
+        for i in l:
+            (yield i)
+    
+
+def interval_show():
+    duration = 10 
+    interval = 0.5
+    lights = [0, 1, 2]
+
+    prev_states = [getLightStatus(num) for num in lights]
+
+    for light in lights:
+        setLightStatus(light, 0)
+
+    dt = 0
+    light_gen = looping_generator(l)
+
+    while dt < duration:
+        light = next(light_gen)
+        setLightStatus(light, 1)
+        sleep(interval)
+        setLightStatus(light, 0)
+        duration += interval
+    
+
 if __name__ == '__main__':
 
     # initialize wiringpi2 services
