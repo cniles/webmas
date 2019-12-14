@@ -1,6 +1,7 @@
 from flask import Flask,redirect,request
 import wiringpi
 import json
+from random import shuffle
 from time import sleep
 
 from tinydb import TinyDB, Query
@@ -98,8 +99,23 @@ def add_timer():
 
 @app.route('/twinkle', methods=['POST'])
 def random_twinkle():
-    interval_show()
+    
+    def lighttree():
+        interval_show(30, 0.2, [4, 3, 2])
 
+    def realtrees():
+        interval_show(30, 0.1, [0, 6])
+
+    def aroundthehouse():
+        lights = valid_lights[:]
+        shuffle(lights)
+        interval_show(60, 0.33, lights, invert=True)
+
+    shows = [lighttree, realtrees, aroundthehouse]
+    shuffle(shows)
+    shows[0]()
+    
+    return json.dumps({'result':'ok'})
 
 
 def looping_generator(l):
@@ -108,26 +124,28 @@ def looping_generator(l):
             (yield i)
     
 
-def interval_show():
-    duration = 10 
-    interval = 0.5
-    lights = [0, 1, 2]
-
-    prev_states = [getLightStatus(num) for num in lights]
+def interval_show(duration, interval, lights, invert=False):
+    base = 1 if invert else 0
+    select = 0 if invert else 1
+    
+    prev_states = dict([(light, getLightStatus(light)) for light in lights])
 
     for light in lights:
-        setLightStatus(light, 0)
+        setLightStatus(light, base)
 
     dt = 0
-    light_gen = looping_generator(l)
+    light_gen = looping_generator(lights)
 
     while dt < duration:
         light = next(light_gen)
-        setLightStatus(light, 1)
+        setLightStatus(light, select)
         sleep(interval)
-        setLightStatus(light, 0)
-        duration += interval
-    
+        setLightStatus(light, base)
+        dt += interval
+
+    for (light, state) in prev_states.items():
+        setLightStatus(light, state)
+
 
 if __name__ == '__main__':
 
