@@ -38,6 +38,10 @@
 		$scope.lights = data;
 	    });
 	};
+	
+	this.twinkle = function() {
+	    $http.post('/twinkle', {}).success(function(data, status) {});
+	};
     });
 
     app.controller('TimerController', function($scope, $http) {
